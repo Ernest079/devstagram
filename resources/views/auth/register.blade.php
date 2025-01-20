@@ -9,7 +9,7 @@
             <img src="{{ asset('img/register.jpg')}}" alt="Imagen Registro de Usuarios">
         </div>
         <div class="md:w-4/12 bg-white rounded-lg shadow-xl p-6">
-            <form action="{{ route('register') }}" method="POST">
+            <form action="{{ route('register') }}" method="POST" novalidate>
                 @csrf
                 <div class="mb-5">
                     <label for="name" class="mb-2 block uppercase text-gray-500 font-bold">
@@ -20,7 +20,10 @@
                         name="name"
                         type="text"
                         placeholder="Tu nombre"
-                        class="border p-3 w-full rounded-lg"
+                        class="border p-3 w-full rounded-lg @error('name')border-red-500
+
+                        @enderror"
+                        value="{{ old('name') }}"
                     />
                     @error('name')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
@@ -37,8 +40,15 @@
                         name="username"
                         type="text"
                         placeholder="Tu nombre de usuario"
-                        class="border p-3 w-full rounded-lg"
-                    />
+                        class="border p-3 w-full rounded-lg @error('username')border-red-500
+
+                        @enderror"
+                        value="{{ old('username') }}"                    />
+                    @error('username')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
                 <div class="mb-5">
                     <label for="email" class="mb-2 block uppercase text-gray-500 font-bold">
@@ -47,10 +57,17 @@
                     <input
                         id="email"
                         name="email"
-                        type="text"
+                        type="email"
                         placeholder="Tu email"
-                        class="border p-3 w-full rounded-lg"
-                    />
+                        class="border p-3 w-full rounded-lg @error('email')border-red-500
+
+                        @enderror"
+                        value="{{ old('email') }}"                    />
+                    @error('email')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
                 <div class="mb-5">
                     <label for="password" class="mb-2 block uppercase text-gray-500 font-bold">
@@ -61,16 +78,23 @@
                         name="password"
                         type="password"
                         placeholder="Password"
-                        class="border p-3 w-full rounded-lg"
+                        class="border p-3 w-full rounded-lg @error('password')border-red-500
+
+                        @enderror"
                     />
+                    @error('password')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
                 <div class="mb-5">
-                    <label for="password-confirmation" class="mb-2 block uppercase text-gray-500 font-bold">
+                    <label for="password_confirmation" class="mb-2 block uppercase text-gray-500 font-bold">
                         password
                     </label>
                     <input
-                        id="password-confirmation"
-                        name="password-confirmation"
+                        id="password_confirmation"
+                        name="password_confirmation"
                         type="password"
                         placeholder="Password"
                         class="border p-3 w-full rounded-lg"
