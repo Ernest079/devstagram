@@ -19,34 +19,38 @@
         </div>
         <div class = " md:w-1/2 p-5">
             <div class="shadow bg-white p-5 mb-5">
-                <p class="text-xl font-bold text-center mb-4">Agrega un Nuevo Comentario</p>
-                <form>
-                    <div class="mb-5">
-                        <label for="descripcion" class="mb-2 block uppercase text-gray-500 font-bold">
-                            Descripción
-                        </label>
-                        <textarea
-                            id="descripcion"
-                            name="descripcion"
-                            placeholder="Descripción"
-                            class="border p-3 w-full rounded-lg @error('name')border-red-500
+                @auth
+                    <p class="text-xl font-bold text-center mb-4">Agrega un Nuevo Comentario</p>
+                    <form>
+                        <div class="mb-5">
+                            <label for="comentario" class="mb-2 block uppercase text-gray-500 font-bold">
+                                Comentario
+                            </label>
+                            <textarea
+                                id="comentario"
+                                name="comentario"
+                                placeholder="Agrega un comentario"
+                                class="border p-3 w-full rounded-lg
+                                @error('name')border-red-500
 
-                            @enderror"
-                        > {{ old('descripcion') }} </textarea>
-                        @error('descripcion')
-                            <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
+                                @enderror"
+                            > </textarea>
+                            @error('comentario')
+                                <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
 
-                    <input
-                        type="submit"
-                        value="Crear Publicación"
-                        class="bg-sky-600 hover:bg-sky-700 transition-colors colors-pointer
-                        uppercase font-bold w-full p-3 text-white rounded-lg"
-                    />
-                </form>
+                        <input
+                            type="submit"
+                            value="Comentar"
+                            class="bg-sky-600 hover:bg-sky-700 transition-colors colors-pointer
+                            uppercase font-bold w-full p-3 text-white rounded-lg"
+                        />
+                    </form>
+                @endauth
+
             </div>
         </div>
     </div>
