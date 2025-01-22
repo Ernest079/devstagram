@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -19,11 +20,13 @@ Route::post('/login', [LoginController::class, 'store']);
 Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
 Route::middleware('auth')->group(function (){
-    Route::get('/{user:username}', [PostController::class, 'index'])->name('post.index');
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-
+    Route::post('/{user:username}/posts/{post}', [ComentarioController::class, 'store'])->name('comentarios.store');
+    ROute::delete('/posts/{post}', [PostController::class, 'destroy'])->name('post.destroy');
 });
+Route::get('/{user:username}', [PostController::class, 'index'])->name('post.index');
+
 Route::get('/{user:username}/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
 

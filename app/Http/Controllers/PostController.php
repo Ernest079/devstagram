@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class PostController extends Controller
 {
+
+    use AuthorizesRequests;
     // public function __construct()
     // {
     //     $this->middleware('');
@@ -45,7 +49,23 @@ class PostController extends Controller
     public function show(User $user, Post $post)
     {
         return view('posts.show', [
-            'post' => $post
+            'post' => $post,
+            'user' => $user
         ]);
+    }
+
+    public function destroy(Post $post, Request $request)
+    {
+        $this->authorize('delete', $post);
+        $post->delete();
+
+        $imagen_path = public_path('uploads/' . $post->imagen);
+
+        if(File::exists($imagen_path)){
+            unlink($imagen_path);
+
+        }
+
+        return redirect()->route('post.index', auth()->user()->username);
     }
 }
