@@ -12,7 +12,6 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\HomeController;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
@@ -22,6 +21,9 @@ Route::post('/login', [LoginController::class, 'store']);
 Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
 Route::middleware('auth')->group(function (){
+    // HOME
+    Route::get('/', HomeController::class)->name('home');
+
     // PERFIL
     Route::get('/editar-perfil', [PerfilController::class, 'index'])->name('perfil.index');
     Route::post('/editar-perfil', [PerfilController::class, 'store'])->name('perfil.store');
