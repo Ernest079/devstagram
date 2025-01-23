@@ -22,6 +22,7 @@ class PerfilController extends Controller
 
         $request->validate([
             'username' => ['required', 'unique:users,username,'.auth()->user()->id,'min:3', 'max:20', 'not_in:twitter,editar-perfil'],
+            'email' => ['required', 'unique:users,email,'.auth()->user()->id, 'max:60', 'email'],
         ]);
 
         if($request->imagen){
@@ -39,8 +40,11 @@ class PerfilController extends Controller
 
         $usuario = User::find(auth()->user()->id);
         $usuario->username = $request ->username;
+        $usuario->email = $request ->email;
         $usuario->imagen = $nombreImagen ?? auth()->user()->imagen ?? '';
         $usuario->save();
+
+
 
         return redirect()->route('post.index', $usuario->username);
     }
